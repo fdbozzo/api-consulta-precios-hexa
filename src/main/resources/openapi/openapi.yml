@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Consulta de Precios - OpenAPI 3.0
+  description: |-
+    API para consulta de precios
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Prices
+    description: Consultas de precios de artículos
+paths:
+  /price:
+    get:
+      tags:
+        - Prices
+      summary: Busca un artículo por marca, id prod. y fecha/hora
+      description: Permite buscar un artículo indicando el código de marca, el id de artículo y la fecha/hora de consulta
+      #operationId: findByBrandIdProductIdDatetime
+      parameters:
+        - $ref: "#/components/parameters/brandId"
+        - $ref: "#/components/parameters/productId"
+        - $ref: "#/components/parameters/applicationDatetime"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PriceApiResponse"
+              examples:
+                example1:
+                  summary: Ejemplo 1
+                  value:
+                    - brand_id: 1
+                      start_date: "2020-06-14 00:00:00"
+                      end_date: "2020-12-31 23:59:59"
+                      product_id: 35455
+                      price: 35.50
+                      price_list: 1
+                      priority: 0
+                      curr: "EUR"
+                example2:
+                  summary: Ejemplo 2
+                  value:
+                    - brand_id: 1
+                      start_date: "2020-06-14 15:00:00"
+                      end_date: "2020-06-14 18:30:00"
+                      product_id: 35455
+                      price: 25.45
+                      price_list: 2
+                      priority: 1
+                      curr: "EUR"
+                example3:
+                  summary: Ejemplo 3
+                  value:
+                    - brand_id: 1
+                      start_date: "2020-06-15 00:00:00"
+                      end_date: "2020-06-15 11:00:00"
+                      product_id: 35455
+                      price: 30.50
+                      price_list: 3
+                      priority: 1
+                      curr: "EUR"
+                example4:
+                  summary: Ejemplo 4
+                  value:
+                    - brand_id: 1
+                      start_date: "2020-06-15 16:00:00"
+                      end_date: "2020-12-31 23:59:59"
+                      product_id: 35455
+                      price: 38.95
+                      price_list: 4
+                      priority: 1
+                      curr: "EUR"
+        '400':
+          description: Invalid BrandId/ProductId/Datetime value
+        '404':
+          description: BrandId/ProductId/Datetime not found
+        '500':
+          $ref: "#/components/responses/InternalServerError"
+components:
+  schemas:
+    PriceApiResponse:
+      type: object
+      properties:
+        brand_id:
+          type: integer
+          format: int32
+        product_id:
+          type: integer
+          format: int32
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        price:
+          type: number
+          format: decimal
+        price_list:
+          type: integer
+          format: int32
+        curr:
+          type: string
+  parameters:
+    brandId:
+      name: brand_id
+      in: query
+      description: Id de la marca
+      required: true
+      style: form
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        example: 1
+    productId:
+      name: product_id
+      in: query
+      description: Id del producto
+      required: true
+      style: form
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        example: 35455
+    applicationDatetime:
+      name: application_datetime
+      in: query
+      description: Fecha/hora de consulta
+      required: true
+      style: form
+      schema:
+        type: string
+        format: date-time
+        example: "2020-06-14 00:00:00"
+  responses:
+    InternalServerError:
+      description: |
+        An error occured while processing the request.
+        Please, contact admin@business.com
+

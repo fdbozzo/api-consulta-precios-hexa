@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: pricing-api
+logging:
+  level:
+    root=INFO:
