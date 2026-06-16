@@ -1,4 +1,4 @@
-package com.fdbozzo.pricing;
+package com.fdbozzo.pricing.unit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
