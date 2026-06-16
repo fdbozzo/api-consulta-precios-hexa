@@ -8,17 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PriceRepository extends JpaRepository<PriceEntity, Integer> {
 
   /**
-   * Equivalent query (documentation)
-   *  Query("""
-   *    SELECT p
-   *    FROM PriceEntity p
-   *    WHERE p.brand.id = :brandId
-   *      AND p.productId = :productId
-   *      AND p.startDate <= :date
-   *      AND p.endDate >= :date
-   *    ORDER BY p.priority DESC
-   *  """)
+   * Equivalent query (documentation):
+   * Query(""" SELECT p FROM PriceEntity p WHERE p.brand.id =
+   * :brandId AND p.productId = :productId AND p.startDate <= :date AND p.endDate >= :date ORDER BY
+   * p.priority DESC """)
    */
-  List<PriceEntity> findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(Integer brandId, Integer productId, LocalDateTime applicationDatetime);
+  List<PriceEntity> findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+      Integer brandId, Integer productId, LocalDateTime appDatetimeStart, LocalDateTime appDatetimeEnd);
 
 }

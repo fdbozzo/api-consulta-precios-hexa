@@ -18,7 +18,8 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort {
   @Override
   public Price getPrice(Integer brandId, Integer productId, LocalDateTime applicationDatetime) {
     return PriceEntityMapper.toDomain(
-        priceRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(brandId, productId, applicationDatetime)
-        .get(0));
+        priceRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+                brandId, productId, applicationDatetime, applicationDatetime)
+            .get(0));
   }
 }
