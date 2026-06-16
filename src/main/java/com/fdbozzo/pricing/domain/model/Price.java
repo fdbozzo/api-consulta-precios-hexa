@@ -1,9 +1,13 @@
 package com.fdbozzo.pricing.domain.model;
 
+import java.math.BigDecimal;
+import lombok.Data;
+
+@Data
 public class Price {
 
   private Brand brand;
-  private Double price;
+  private BigDecimal price;
   private Integer priceList;
   private CurrencyType curr;
 
