@@ -1,7 +1,7 @@
-package com.fdbozzo.pricing.infra.adapter.out.mapper;
+package com.fdbozzo.pricing.infrastructure.persistence.mappers;
 
 import com.fdbozzo.pricing.domain.model.Price;
-import com.fdbozzo.pricing.infra.adapter.out.model.PriceEntity;
+import com.fdbozzo.pricing.infrastructure.persistence.entities.PriceEntity;
 
 public final class PriceEntityMapper {
 

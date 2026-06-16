@@ -3,7 +3,7 @@ package com.fdbozzo.pricing.unit.application.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.fdbozzo.pricing.application.service.PricesApiService;
+import com.fdbozzo.pricing.application.service.PriceQueryService;
 import com.fdbozzo.pricing.domain.model.Price;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@SpringJUnitConfig(classes = {PricesApiService.class})
-class PricesApiServiceTest {
+@SpringJUnitConfig(classes = {PriceQueryService.class})
+class PriceQueryServiceTest {
 
   @Autowired
-  PricesApiService service;
+  PriceQueryService service;
 
   @Test
   void should_retrieve_highest_priority_when_overlapping_dates() {

@@ -1,7 +1,7 @@
-package com.fdbozzo.pricing.infra.adapter.out.mapper;
+package com.fdbozzo.pricing.infrastructure.persistence.mappers;
 
 import com.fdbozzo.pricing.domain.model.Brand;
-import com.fdbozzo.pricing.infra.adapter.out.model.BrandEntity;
+import com.fdbozzo.pricing.infrastructure.persistence.entities.BrandEntity;
 
 public final class BrandEntityMapper {
 

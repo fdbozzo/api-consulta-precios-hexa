@@ -1,4 +1,4 @@
-package com.fdbozzo.pricing.infra.adapter.out.model;
+package com.fdbozzo.pricing.infrastructure.persistence.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

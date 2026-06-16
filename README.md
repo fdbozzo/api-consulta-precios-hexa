@@ -39,3 +39,10 @@ docker-compose up
 ### Tests
 * For E2E tests, the used syntax is `[Endpoint][Scenario][Type]Test`. example: `GetPriceSuccessE2ETest`
 * 
+
+### Date and Time
+* LocalDateTime was used in all layers (and TIMESTAMP in DB) because of simplicity, but in real systems should be:
+  * DB: INSTANT or TIMESTAMP
+  * DOMAIN: LocalDateTime
+  * API: OffsetLocalDateTime
+
