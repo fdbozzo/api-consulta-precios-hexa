@@ -20,7 +20,7 @@ class PricesApiServiceTest {
   @Test
   void should_retrieve_highest_priority_when_overlapping_dates() {
     Price result = service.getPrice(1, 35455, LocalDateTime.of(2020, 6, 15, 16, 0, 0));
-    assertEquals(new BigDecimal("38.95"), result.getPrice());
+    assertEquals(new BigDecimal("38.95"), result.getValue());
   }
 
 }

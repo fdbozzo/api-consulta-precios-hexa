@@ -6,13 +6,10 @@ import lombok.Data;
 @Data
 public class Price {
 
+  private Integer productId;
   private Brand brand;
-  private BigDecimal price;
+  private BigDecimal value;
   private Integer priceList;
-  private CurrencyType curr;
-
-  public enum CurrencyType {
-    EUR, USD, GBP
-  }
+  private String curr;
 
 }
