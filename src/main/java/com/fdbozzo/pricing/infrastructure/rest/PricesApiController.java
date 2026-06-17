@@ -18,7 +18,8 @@ public class PricesApiController implements PricesApi {
   @Override
   public ResponseEntity<PriceApiResponse> v1PricesGet(Integer brandId, Integer productId,
       LocalDateTime applicationDatetime) {
-    return ResponseEntity.ok(PriceApiResponseMapper.toResponse(getPriceUseCase.getPrice(brandId, productId, applicationDatetime)));
+    return ResponseEntity.ok(PriceApiResponseMapper.toResponse(
+        getPriceUseCase.getPrice(brandId, productId, applicationDatetime)));
   }
 
 }

@@ -14,6 +14,7 @@ public interface PriceRepository extends JpaRepository<PriceEntity, Integer> {
    * p.priority DESC """)
    */
   List<PriceEntity> findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
-      Integer brandId, Integer productId, LocalDateTime appDatetimeStart, LocalDateTime appDatetimeEnd);
+      Integer brandId, Integer productId, LocalDateTime appDatetimeStart,
+      LocalDateTime appDatetimeEnd);
 
 }
