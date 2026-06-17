@@ -6,7 +6,9 @@ import com.fdbozzo.pricing.infrastructure.rest.mappers.PriceApiResponseMapper;
 import com.fdbozzo.pricing.infrastructure.rest.model.PriceApiResponse;
 import java.time.LocalDateTime;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class PricesApiController implements PricesApi {
 
   private final GetPriceUseCase getPriceUseCase;
