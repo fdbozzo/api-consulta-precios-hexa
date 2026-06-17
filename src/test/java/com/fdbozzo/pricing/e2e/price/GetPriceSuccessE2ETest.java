@@ -23,7 +23,7 @@ class GetPriceSuccessE2ETest {
         .queryParam("applicationDatetime", qryDatetime)
 
         .when()
-        .get("/price")
+        .get("/v1/price")
 
         .then()
         .statusCode(200)
@@ -41,7 +41,7 @@ class GetPriceSuccessE2ETest {
         .queryParam("brandId", 1)
 
         .when()
-        .get("/price")
+        .get("/v1/price")
 
         .then()
         .statusCode(404);
