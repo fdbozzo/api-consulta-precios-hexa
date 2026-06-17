@@ -29,6 +29,8 @@ springdoc:
     enabled: true
   swagger-ui:
     use-root-path: true
+    #config-url: /openapi.yml
+    disable-swagger-default-url: true
 
 logging:
   level:

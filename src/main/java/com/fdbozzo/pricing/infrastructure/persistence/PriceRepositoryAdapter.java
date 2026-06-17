@@ -1,6 +1,7 @@
 package com.fdbozzo.pricing.infrastructure.persistence;
 
-import com.fdbozzo.pricing.domain.exceptions.PriceNotFoundException;
+import com.fdbozzo.pricing.domain.exceptions.DomainException;
+import com.fdbozzo.pricing.domain.model.ErrorCode;
 import com.fdbozzo.pricing.domain.model.Price;
 import com.fdbozzo.pricing.domain.ports.out.PriceRepositoryPort;
 import com.fdbozzo.pricing.infrastructure.persistence.entities.PriceEntity;
@@ -24,7 +25,9 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort {
         brandId, productId, applicationDatetime, applicationDatetime);
     return result
         .map(PriceEntityMapper::toDomain)
-        .orElseThrow(() -> new PriceNotFoundException(brandId, productId, applicationDatetime));
+        .orElseThrow(() -> new DomainException(ErrorCode.PRICE_NOT_FOUND,
+            String.format("Price not found for brandId=%s productId=%s date=%s",
+                brandId, productId, applicationDatetime)));
   }
 
 }

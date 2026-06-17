@@ -1,26 +1,48 @@
 package com.fdbozzo.pricing.unit.application.service;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.fdbozzo.pricing.application.service.PriceQueryService;
+import com.fdbozzo.pricing.domain.model.Brand;
 import com.fdbozzo.pricing.domain.model.Price;
+import com.fdbozzo.pricing.domain.ports.out.PriceRepositoryPort;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringJUnitConfig(classes = {PriceQueryService.class})
+@ExtendWith(MockitoExtension.class)
 class PriceQueryServiceTest {
 
-  @Autowired
-  PriceQueryService service;
+  @Mock
+  private PriceRepositoryPort priceRepositoryPort;
+
+  @InjectMocks
+  private PriceQueryService priceQueryService;
 
   @Test
-  void should_retrieve_highest_priority_when_overlapping_dates() {
-    Price result = service.getPrice(1, 35455, LocalDateTime.of(2020, 6, 15, 16, 0, 0));
-    assertEquals(new BigDecimal("38.95"), result.getValue());
+  void should_call_repository_with_correct_parameters_and_return_price() {
+    // Given
+    Integer brandId = 1;
+    Integer productId = 35455;
+    LocalDateTime applicationDatetime = LocalDateTime.of(2020, 6, 14, 10, 0, 0);
+    Price expectedPrice = new Price(productId, new Brand(brandId, "ZARA"), applicationDatetime,
+        applicationDatetime, new BigDecimal("35.50"), 1, "EUR");
+
+    when(priceRepositoryPort.getPrice(brandId, productId, applicationDatetime))
+        .thenReturn(expectedPrice);
+
+    // When
+    Price result = priceQueryService.getPrice(brandId, productId, applicationDatetime);
+
+    // Then
+    assertEquals(expectedPrice, result);
+    verify(priceRepositoryPort).getPrice(brandId, productId, applicationDatetime);
   }
 
 }

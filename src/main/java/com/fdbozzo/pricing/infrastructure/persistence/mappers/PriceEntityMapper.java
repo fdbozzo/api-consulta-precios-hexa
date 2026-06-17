@@ -11,15 +11,9 @@ public final class PriceEntityMapper {
     if (priceEntity == null) {
       return null;
     }
-    final Price price = new Price();
-    price.setValue(priceEntity.getPrice());
-    price.setBrand(BrandEntityMapper.toDomain(priceEntity.getBrand()));
-    price.setProductId(priceEntity.getProductId());
-    price.setPriceList(priceEntity.getPriceList());
-    price.setCurr(priceEntity.getCurr());
-    price.setStartDate(priceEntity.getStartDate());
-    price.setEndDate(priceEntity.getEndDate());
-    return price;
+    return new Price(priceEntity.getProductId(), BrandEntityMapper.toDomain(priceEntity.getBrand()),
+        priceEntity.getStartDate(), priceEntity.getEndDate(), priceEntity.getPrice(),
+        priceEntity.getPriceList(), priceEntity.getCurr());
   }
 
 }

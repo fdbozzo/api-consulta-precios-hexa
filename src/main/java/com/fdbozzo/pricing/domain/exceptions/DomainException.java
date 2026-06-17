@@ -1,8 +1,11 @@
 package com.fdbozzo.pricing.domain.exceptions;
 
-public abstract class DomainException extends BaseException {
+import com.fdbozzo.pricing.domain.model.ErrorCode;
 
-  protected DomainException(String code, String message) {
+public class DomainException extends BaseException {
+
+  public DomainException(ErrorCode code, String message) {
     super(code, message);
   }
+
 }

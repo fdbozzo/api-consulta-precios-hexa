@@ -1,15 +1,17 @@
 package com.fdbozzo.pricing.domain.exceptions;
 
+import com.fdbozzo.pricing.domain.model.ErrorCode;
+
 public abstract class BaseException extends RuntimeException {
 
-  private final String code;
+  private final ErrorCode code;
 
-  protected BaseException(String code, String message) {
+  protected BaseException(ErrorCode code, String message) {
     super(message);
     this.code = code;
   }
 
-  public String getCode() {
+  public ErrorCode getCode() {
     return code;
   }
 }

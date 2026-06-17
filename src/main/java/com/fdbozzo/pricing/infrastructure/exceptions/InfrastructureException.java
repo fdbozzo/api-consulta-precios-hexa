@@ -1,10 +1,12 @@
 package com.fdbozzo.pricing.infrastructure.exceptions;
 
 import com.fdbozzo.pricing.domain.exceptions.BaseException;
+import com.fdbozzo.pricing.domain.model.ErrorCode;
 
-public abstract class InfrastructureException extends BaseException {
+public class InfrastructureException extends BaseException {
 
-  protected InfrastructureException(String code, String message) {
+  public InfrastructureException(ErrorCode code, String message) {
     super(code, message);
   }
+
 }

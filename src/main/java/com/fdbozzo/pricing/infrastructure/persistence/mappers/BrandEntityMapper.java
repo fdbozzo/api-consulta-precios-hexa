@@ -11,10 +11,7 @@ public final class BrandEntityMapper {
     if (brandEntity == null) {
       return null;
     }
-    final Brand brand = new Brand();
-    brand.setId(brandEntity.getId());
-    brand.setName(brandEntity.getName());
-    return brand;
+    return new Brand(brandEntity.getId(), brandEntity.getName());
   }
 
 }
