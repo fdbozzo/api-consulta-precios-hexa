@@ -14,8 +14,11 @@ public final class PriceEntityMapper {
     final Price price = new Price();
     price.setValue(priceEntity.getPrice());
     price.setBrand(BrandEntityMapper.toDomain(priceEntity.getBrand()));
+    price.setProductId(priceEntity.getProductId());
     price.setPriceList(priceEntity.getPriceList());
     price.setCurr(priceEntity.getCurr());
+    price.setStartDate(priceEntity.getStartDate());
+    price.setEndDate(priceEntity.getEndDate());
     return price;
   }
 
