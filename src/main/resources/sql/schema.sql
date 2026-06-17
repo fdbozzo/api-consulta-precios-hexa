@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS brands
 
 CREATE TABLE IF NOT EXISTS prices
 (
+    id         INT            NOT NULL AUTO_INCREMENT PRIMARY KEY,
     brand_id   INT            NOT NULL,
     product_id INT            NOT NULL,
     start_date TIMESTAMP      NOT NULL,
