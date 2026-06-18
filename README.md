@@ -31,7 +31,50 @@ Run the microservice from container:
 docker-compose up
 ```
 
-## Test
+## Test application from browser
+Open this url in a browser: [http://localhost:8080/](http://localhost:8080/) and use Swagger interface to test.
+
+Here are some use cases data to copy/paste:
+
+#### Search OK
+```shell
+brand_id: 1
+product_id: 35455
+date: 2020-06-14T00:00:00
+```
+
+#### Price NOT_FOUND
+```shell
+brand_id: 2
+product_id: 35455
+date: 2020-06-14T00:00:00
+```
+
+#### Invalid brand_id
+```shell
+brand_id: -1
+product_id: 35455
+date: 2020-06-14T00:00:00
+```
+
+#### Invalid date (BAD_REQUEST)
+```shell
+brand_id: 1
+product_id: 35455
+date: 2020-06-14 00:00:00
+```
+
+
+#### Invalid Media-Type (NOT_ACCEPTABLE)
+From terminal, run this:
+```shell
+curl -v -X 'GET' \
+  'http://localhost:8080/v1/prices?brand_id=1&product_id=35455&application_datetime=2020-06-14T00%3A00%3A00' \
+  -H 'accept: application/INVALID'
+```
+
+
+## Automated Tests and coverage with jacoco
 The application can be tested with this command from terminal:
 ```shell
 ./mvnw clean test
