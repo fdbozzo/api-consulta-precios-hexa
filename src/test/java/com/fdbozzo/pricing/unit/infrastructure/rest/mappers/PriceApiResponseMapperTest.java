@@ -10,7 +10,9 @@ import com.fdbozzo.pricing.infrastructure.rest.model.PriceApiResponse;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 class PriceApiResponseMapperTest {
 
   @Test

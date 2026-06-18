@@ -17,9 +17,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
+@ActiveProfiles("test")
 class GetPriceE2ETest {
 
   @LocalServerPort
@@ -47,7 +50,7 @@ class GetPriceE2ETest {
         .get("/v1/prices")
 
         .then()
-        .statusCode(200)
+        .statusCode(HttpStatus.OK.value())
         .body("price_list", equalTo(expectedPriceList))
         .body("price", equalTo(expectedPrice));
 
@@ -65,8 +68,100 @@ class GetPriceE2ETest {
         .get("/v1/prices")
 
         .then()
-        .statusCode(404);
+        .statusCode(HttpStatus.NOT_FOUND.value());
   }
+
+  @Test
+  void should_return_400_when_brandId_argument_not_valid() {
+
+    given()
+        .queryParam("application_datetime", "2026-01-01T10:00:00")
+        .queryParam("product_id", 99999)
+        .queryParam("brand_id", -1)
+
+        .when()
+        .get("/v1/prices")
+
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value());
+  }
+
+  @Test
+  void should_return_400_when_productId_argument_not_valid() {
+
+    given()
+        .queryParam("application_datetime", "2026-01-01T10:00:00")
+        .queryParam("product_id", -99999)
+        .queryParam("brand_id", 1)
+
+        .when()
+        .get("/v1/prices")
+
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value());
+  }
+
+  @Test
+  void should_return_400_when_date_argument_not_valid() {
+
+    given()
+        .queryParam("application_datetime", "2026-01-01 10:00:00")
+        .queryParam("product_id", 99999)
+        .queryParam("brand_id", 1)
+
+        .when()
+        .get("/v1/prices")
+
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value()); // http 400
+  }
+
+  @Test
+  void should_return_400_when_date_argument_name_not_valid() {
+
+    given()
+        .queryParam("datetime", "2026-01-01T10:00:00")
+        .queryParam("product_id", 99999)
+        .queryParam("brand_id", 1)
+
+        .when()
+        .get("/v1/prices")
+
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value()); // http 400
+  }
+
+  @Test
+  void should_return_406_when_media_type_not_valid() {
+
+    given()
+        .queryParam("application_datetime", "2026-01-01T10:00:00")
+        .queryParam("product_id", 35455)
+        .queryParam("brand_id", 1)
+        .accept("application/jsonXD")
+
+        .when()
+        .get("/v1/prices")
+
+        .then()
+        .statusCode(HttpStatus.NOT_ACCEPTABLE.value()); // http 406
+  }
+
+  @Test
+  void should_return_400_when_endpoint_not_valid() {
+
+    given()
+        .queryParam("application_datetime", "2026-01-01T10:00:00")
+        .queryParam("product_id", 35455)
+        .queryParam("brand_id", 1)
+
+        .when()
+        .get("/v1/noprices")
+
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value());
+  }
+
 
   /**
    * Generate the use cases defined on the original spec.

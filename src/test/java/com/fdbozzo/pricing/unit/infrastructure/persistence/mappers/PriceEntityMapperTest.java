@@ -11,7 +11,9 @@ import com.fdbozzo.pricing.infrastructure.persistence.mappers.PriceEntityMapper;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 class PriceEntityMapperTest {
 
   @Test
