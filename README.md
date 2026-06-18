@@ -8,7 +8,7 @@ Building the API client library requires [Maven](https://maven.apache.org/) to b
 To install the API client library to your local Maven repository, from project's root folder simply execute:
 
 ```shell
-mvn clean install
+./mvnw clean install
 ```
 
 ## Build
@@ -33,7 +33,7 @@ The application can be tested with this command from terminal:
 
 ## Jacoco coverage report
 The report can be found on this directory:
-`target/site/jacoco/index.html`
+[View jacoco report](./target/site/jacoco/index.html)
 
 ## Design desitions and future enhancements 
 
