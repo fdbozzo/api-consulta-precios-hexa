@@ -1,13 +1,10 @@
 # pricing-api
-
 API for querying prices by brand, product and temporal range, by higuest priority.
 
 ## Requirements
-
 Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
 
 ## Installation
-
 To install the API client library to your local Maven repository, from project's root folder simply execute:
 
 ```shell
@@ -15,7 +12,6 @@ mvn clean install
 ```
 
 ## Build
-
 Generate the container with the JAR by executing:
 
 ```shell
@@ -23,13 +19,21 @@ docker build -t pricing-api:latest .
 ```
 
 ## Execution
-
 Run the microservice from container:
 
 ```shell
 docker-compose up
 ```
 
+## Test
+The application can be tested with this command from terminal:
+```shell
+./mvnw clean test
+```
+
+## Jacoco coverage report
+The report can be found on this directory:
+`target/site/jacoco/index.html`
 
 ## Design desitions and future enhancements 
 
