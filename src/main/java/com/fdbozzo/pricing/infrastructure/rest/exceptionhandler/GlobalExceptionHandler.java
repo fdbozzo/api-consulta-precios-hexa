@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +22,13 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+  private static final String CONTRACT_EXCEPTION = "Contract Exception";
+  private static final String UNEXPECTED_EXCEPTION = "Unexpected Exception";
+  private static final String APPLICATION_EXCEPTION = "Application Exception";
+  private static final String INFRASTRUCTURE_EXCEPTION = "Infrastructure Exception";
+  private static final String VALIDATION_REQUEST_EXCEPTION = "Validation Request Exception";
+  private static final String TYPE_BINDING_EXCEPTION = "Type/Binding Exception";
 
   @ExceptionHandler(DomainException.class)
   public ResponseEntity<ErrorResponseImpl> handleDomainException(DomainException ex) {
@@ -37,7 +42,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ApplicationException.class)
   public ResponseEntity<ErrorResponseImpl> handleApplicationException(ApplicationException ex) {
     if (log.isDebugEnabled()) {
-      log.error("Application Exception: ", ex);
+      log.error(APPLICATION_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(ErrorMapper.toStatus(ex.getCode()))
         .body(new ErrorResponseImpl(ex.getCode().name(), ex.getMessage()));
@@ -46,7 +51,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(InfrastructureException.class)
   public ResponseEntity<ErrorResponseImpl> handleInfrastructureException(InfrastructureException ex) {
     if (log.isDebugEnabled()) {
-      log.error("Infrastructure Exception: ", ex);
+      log.error(INFRASTRUCTURE_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(ErrorMapper.toStatus(ex.getCode()))
         .body(new ErrorResponseImpl(ex.getCode().name(), ex.getMessage()));
@@ -59,9 +64,9 @@ public class GlobalExceptionHandler {
       MethodArgumentNotValidException.class,
       ConstraintViolationException.class
   })
-  public ResponseEntity<ErrorResponseImpl> handleRequestValidationException(RuntimeException ex) {
+  public ResponseEntity<ErrorResponseImpl> handleRequestValidationException(Exception ex) {
     if (log.isDebugEnabled()) {
-      log.error("Validation Request Exception: ", ex);
+      log.error(VALIDATION_REQUEST_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(new ErrorResponseImpl(HttpStatus.BAD_REQUEST.name(), ex.getMessage()));
@@ -75,9 +80,9 @@ public class GlobalExceptionHandler {
       HttpMessageNotReadableException.class,
       MissingServletRequestParameterException.class
   })
-  public ResponseEntity<ErrorResponseImpl> handleBindingException(RuntimeException ex) {
+  public ResponseEntity<ErrorResponseImpl> handleBindingException(Exception ex) {
     if (log.isDebugEnabled()) {
-      log.error("Type/Binding Exception: ", ex);
+      log.error(TYPE_BINDING_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(new ErrorResponseImpl(HttpStatus.BAD_REQUEST.name(), ex.getMessage()));
@@ -86,26 +91,10 @@ public class GlobalExceptionHandler {
   /**
    * Errores de contrato HTTP (cliente)
    */
-  @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-  public ResponseEntity<ErrorResponseImpl> handleHttpContractException1(RuntimeException ex) {
-    if (log.isDebugEnabled()) {
-      log.error("Contract Exception: ", ex);
-    }
-    return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
-        .body(new ErrorResponseImpl(HttpStatus.METHOD_NOT_ALLOWED.name(), ex.getMessage()));
-  }
-  @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
-  public ResponseEntity<ErrorResponseImpl> handleHttpContractException2(RuntimeException ex) {
-    if (log.isDebugEnabled()) {
-      log.error("Contract Exception: ", ex);
-    }
-    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-        .body(new ErrorResponseImpl(HttpStatus.UNSUPPORTED_MEDIA_TYPE.name(), ex.getMessage()));
-  }
   @ExceptionHandler({HttpMediaTypeNotAcceptableException.class})
-  public ResponseEntity<ErrorResponseImpl> handleHttpContractException3(RuntimeException ex) {
+  public ResponseEntity<ErrorResponseImpl> handleHttpContractException3(ServletException ex) {
     if (log.isDebugEnabled()) {
-      log.error("Contract Exception: ", ex);
+      log.error(CONTRACT_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
         .body(new ErrorResponseImpl(HttpStatus.NOT_ACCEPTABLE.name(), ex.getMessage()));
@@ -113,7 +102,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler({NoResourceFoundException.class})
   public ResponseEntity<ErrorResponseImpl> handleHttpContractException4(ServletException ex) {
     if (log.isDebugEnabled()) {
-      log.error("Contract Exception: ", ex);
+      log.error(CONTRACT_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(new ErrorResponseImpl(HttpStatus.BAD_REQUEST.name(), ex.getMessage()));
@@ -125,7 +114,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponseImpl> handleException(Exception ex) {
     if (log.isDebugEnabled()) {
-      log.error("Unexpected Exception: ", ex);
+      log.error(UNEXPECTED_EXCEPTION + ": ", ex);
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new ErrorResponseImpl(HttpStatus.INTERNAL_SERVER_ERROR.name(), ex.getMessage()));
