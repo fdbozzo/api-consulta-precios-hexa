@@ -2,7 +2,7 @@
 API for querying prices by brand, product and temporal range, by higuest priority.
 
 ## Requirements
-Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
+Building the API client library requires Java 17 installed.
 
 ## Installation
 To install the API client library to your local Maven repository, from project's root folder simply execute:
