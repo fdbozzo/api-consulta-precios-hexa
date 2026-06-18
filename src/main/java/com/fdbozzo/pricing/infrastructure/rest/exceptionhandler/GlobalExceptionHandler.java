@@ -1,8 +1,6 @@
 package com.fdbozzo.pricing.infrastructure.rest.exceptionhandler;
 
-import com.fdbozzo.pricing.application.exceptions.ApplicationException;
 import com.fdbozzo.pricing.domain.exceptions.DomainException;
-import com.fdbozzo.pricing.infrastructure.exceptions.InfrastructureException;
 import com.fdbozzo.pricing.infrastructure.rest.mappers.ErrorMapper;
 import com.fdbozzo.pricing.infrastructure.rest.model.response.ErrorResponseImpl;
 import jakarta.servlet.ServletException;
@@ -10,9 +8,7 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,8 +21,6 @@ public class GlobalExceptionHandler {
 
   private static final String CONTRACT_EXCEPTION = "Contract Exception";
   private static final String UNEXPECTED_EXCEPTION = "Unexpected Exception";
-  private static final String APPLICATION_EXCEPTION = "Application Exception";
-  private static final String INFRASTRUCTURE_EXCEPTION = "Infrastructure Exception";
   private static final String VALIDATION_REQUEST_EXCEPTION = "Validation Request Exception";
   private static final String TYPE_BINDING_EXCEPTION = "Type/Binding Exception";
 
@@ -39,32 +33,11 @@ public class GlobalExceptionHandler {
         .body(new ErrorResponseImpl(ex.getCode().name(), ex.getMessage()));
   }
 
-  @ExceptionHandler(ApplicationException.class)
-  public ResponseEntity<ErrorResponseImpl> handleApplicationException(ApplicationException ex) {
-    if (log.isDebugEnabled()) {
-      log.error(APPLICATION_EXCEPTION + ": ", ex);
-    }
-    return ResponseEntity.status(ErrorMapper.toStatus(ex.getCode()))
-        .body(new ErrorResponseImpl(ex.getCode().name(), ex.getMessage()));
-  }
-
-  @ExceptionHandler(InfrastructureException.class)
-  public ResponseEntity<ErrorResponseImpl> handleInfrastructureException(InfrastructureException ex) {
-    if (log.isDebugEnabled()) {
-      log.error(INFRASTRUCTURE_EXCEPTION + ": ", ex);
-    }
-    return ResponseEntity.status(ErrorMapper.toStatus(ex.getCode()))
-        .body(new ErrorResponseImpl(ex.getCode().name(), ex.getMessage()));
-  }
-
   /**
    * Errores de validación de request (http 400)
    */
-  @ExceptionHandler({
-      MethodArgumentNotValidException.class,
-      ConstraintViolationException.class
-  })
-  public ResponseEntity<ErrorResponseImpl> handleRequestValidationException(Exception ex) {
+  @ExceptionHandler({ConstraintViolationException.class})
+  public ResponseEntity<ErrorResponseImpl> handleRequestValidationException2(Exception ex) {
     if (log.isDebugEnabled()) {
       log.error(VALIDATION_REQUEST_EXCEPTION + ": ", ex);
     }
@@ -75,12 +48,16 @@ public class GlobalExceptionHandler {
   /**
    * Errores de tipo / binding (http 400)
    */
-  @ExceptionHandler({
-      MethodArgumentTypeMismatchException.class,
-      HttpMessageNotReadableException.class,
-      MissingServletRequestParameterException.class
-  })
+  @ExceptionHandler({MethodArgumentTypeMismatchException.class})
   public ResponseEntity<ErrorResponseImpl> handleBindingException(Exception ex) {
+    if (log.isDebugEnabled()) {
+      log.error(TYPE_BINDING_EXCEPTION + ": ", ex);
+    }
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(new ErrorResponseImpl(HttpStatus.BAD_REQUEST.name(), ex.getMessage()));
+  }
+  @ExceptionHandler({MissingServletRequestParameterException.class})
+  public ResponseEntity<ErrorResponseImpl> handleBindingException2(Exception ex) {
     if (log.isDebugEnabled()) {
       log.error(TYPE_BINDING_EXCEPTION + ": ", ex);
     }
