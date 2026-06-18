@@ -31,7 +31,7 @@ docker-compose up
 ```
 
 
-## About some design desitions 
+## Design desitions and future enhancements 
 
 ### BBDD
 * A composed-index was added, optimized for the main query pattern (brand, product, temporal range and priority).
@@ -46,3 +46,10 @@ docker-compose up
   * DOMAIN: LocalDateTime
   * API: OffsetLocalDateTime
 
+### Logging
+* Some logging was used in some methods. A better approach could be to use AOP for logging input parameters, output response and process time, for more clean code in methods, observability and allow possible optimizations
+
+### Exceptions
+* Basic exception semantic was defined to separate domain, application and infrastructure, including an ErrorCode enum
+* This can be enhanced with more data on each value for evolving the http error responses to RFC 7807 (Problem Details for HTTP APIs) and MDC (Mapped Diagnostic Context)
+* Another evolution could be to setup Structured Logging, that can be used for ELK, Datadog and the like.
