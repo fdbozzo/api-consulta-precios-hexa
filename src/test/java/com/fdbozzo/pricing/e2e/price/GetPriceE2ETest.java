@@ -20,7 +20,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
-class GetPriceSuccessE2ETest {
+class GetPriceE2ETest {
 
   @LocalServerPort
   private int port;
