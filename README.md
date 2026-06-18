@@ -8,14 +8,20 @@ Building the API client library requires [Maven](https://maven.apache.org/) to b
 To install the API client library to your local Maven repository, from project's root folder simply execute:
 
 ```shell
-./mvnw clean install
+./mvnw clean package -DskipTests
+```
+
+## Clean Unused Images
+Before build (or re-build), run this from terminal:
+```shell
+docker image prune --force
 ```
 
 ## Build
 Generate the container with the JAR by executing:
 
 ```shell
-docker build -t pricing-api:latest .
+docker build --no-cache -t pricing-api:latest .
 ```
 
 ## Execution
@@ -41,7 +47,7 @@ The report can be found on this directory:
 * A composed-index was added, optimized for the main query pattern (brand, product, temporal range and priority).
 
 ### Tests
-* For E2E tests, the used syntax is `[Endpoint][Scenario][Type]Test`. example: `GetPriceSuccessE2ETest`
+* For E2E tests, the used syntax is `[Endpoint][Type]Test`. example: `GetPriceE2ETest`
 * 
 
 ### Date and Time
