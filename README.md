@@ -1,5 +1,5 @@
 # pricing-api
-API for querying prices by brand, product and temporal range, by higuest priority.
+API for querying prices by brand, product and temporal range, by highest priority.
 
 ## Requirements
 Building the API client library requires Java 17 installed.
