@@ -10,6 +10,7 @@ import com.fdbozzo.pricing.infrastructure.persistence.entities.PriceEntity;
 import com.fdbozzo.pricing.infrastructure.persistence.mappers.PriceEntityMapper;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Month;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -29,8 +30,8 @@ class PriceEntityMapperTest {
     entity.setPrice(new BigDecimal("35.50"));
     entity.setPriceList(1);
     entity.setCurr("EUR");
-    entity.setStartDate(LocalDateTime.of(2020, 6, 14, 0, 0, 0));
-    entity.setEndDate(LocalDateTime.of(2020, 12, 31, 23, 59, 59));
+    entity.setStartDate(LocalDateTime.of(2020, Month.JUNE, 14, 0, 0, 0));
+    entity.setEndDate(LocalDateTime.of(2020, Month.DECEMBER, 31, 23, 59, 59));
 
     // When
     Price domain = PriceEntityMapper.toDomain(entity);

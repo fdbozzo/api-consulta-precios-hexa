@@ -13,6 +13,7 @@ import com.fdbozzo.pricing.infrastructure.persistence.entities.BrandEntity;
 import com.fdbozzo.pricing.infrastructure.persistence.entities.PriceEntity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +37,7 @@ class PriceRepositoryAdapterTest {
     // Given
     Integer brandId = 1;
     Integer productId = 35455;
-    LocalDateTime applicationDatetime = LocalDateTime.of(2020, 6, 14, 10, 0, 0);
+    LocalDateTime applicationDatetime = LocalDateTime.of(2020, Month.JUNE, 14, 10, 0, 0);
 
     BrandEntity brandEntity = new BrandEntity();
     brandEntity.setId(brandId);
@@ -71,7 +72,7 @@ class PriceRepositoryAdapterTest {
     // Given
     Integer brandId = 1;
     Integer productId = 35455;
-    LocalDateTime applicationDatetime = LocalDateTime.of(2020, 6, 14, 10, 0, 0);
+    LocalDateTime applicationDatetime = LocalDateTime.of(2020, Month.JUNE, 14, 10, 0, 0);
 
     when(priceRepository.findFirstByBrandIdAndProductIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
         brandId, productId, applicationDatetime, applicationDatetime))

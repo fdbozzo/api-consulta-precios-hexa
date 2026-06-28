@@ -10,6 +10,7 @@ import com.fdbozzo.pricing.domain.model.Price;
 import com.fdbozzo.pricing.domain.ports.out.PriceRepositoryPort;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Month;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +33,7 @@ class PriceQueryServiceTest {
     // Given
     Integer brandId = 1;
     Integer productId = 35455;
-    LocalDateTime applicationDatetime = LocalDateTime.of(2020, 6, 14, 10, 0, 0);
+    LocalDateTime applicationDatetime = LocalDateTime.of(2020, Month.JUNE, 14, 10, 0, 0);
     Price expectedPrice = new Price(productId, new Brand(brandId, "ZARA"), applicationDatetime,
         applicationDatetime, new BigDecimal("35.50"), 1, "EUR");
 

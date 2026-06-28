@@ -9,6 +9,7 @@ import com.fdbozzo.pricing.infrastructure.rest.mappers.PriceApiResponseMapper;
 import com.fdbozzo.pricing.infrastructure.rest.model.PriceApiResponse;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Month;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -21,8 +22,8 @@ class PriceApiResponseMapperTest {
     Brand brand = new Brand(1, "ZARA");
 
     Price price = new Price(35455, brand,
-        LocalDateTime.of(2020, 6, 14, 0, 0, 0),
-        LocalDateTime.of(2020, 12, 31, 23, 59, 59),
+        LocalDateTime.of(2020, Month.JUNE, 14, 0, 0, 0),
+        LocalDateTime.of(2020, Month.DECEMBER, 31, 23, 59, 59),
         new BigDecimal("35.50"), 1, "EUR");
 
     // When
