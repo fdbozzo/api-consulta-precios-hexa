@@ -1,4 +1,4 @@
-package com.fdbozzo.pricing.domain.ports.in;
+package com.fdbozzo.pricing.application.ports.in;
 
 import com.fdbozzo.pricing.domain.model.Price;
 import java.time.LocalDateTime;

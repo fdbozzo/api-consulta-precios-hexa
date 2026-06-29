@@ -1,7 +1,7 @@
 package com.fdbozzo.pricing.application.service;
 
 import com.fdbozzo.pricing.domain.model.Price;
-import com.fdbozzo.pricing.domain.ports.in.GetPriceUseCase;
+import com.fdbozzo.pricing.application.ports.in.GetPriceUseCase;
 import com.fdbozzo.pricing.domain.ports.out.PriceRepositoryPort;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;

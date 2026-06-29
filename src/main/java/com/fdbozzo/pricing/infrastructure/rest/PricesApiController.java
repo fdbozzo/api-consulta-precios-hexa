@@ -1,6 +1,6 @@
 package com.fdbozzo.pricing.infrastructure.rest;
 
-import com.fdbozzo.pricing.domain.ports.in.GetPriceUseCase;
+import com.fdbozzo.pricing.application.ports.in.GetPriceUseCase;
 import com.fdbozzo.pricing.infrastructure.rest.api.PricesApi;
 import com.fdbozzo.pricing.infrastructure.rest.mappers.PriceApiResponseMapper;
 import com.fdbozzo.pricing.infrastructure.rest.model.PriceApiResponse;

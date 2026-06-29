@@ -11,7 +11,7 @@ import com.fdbozzo.pricing.domain.exceptions.DomainException;
 import com.fdbozzo.pricing.domain.model.Brand;
 import com.fdbozzo.pricing.domain.model.ErrorCode;
 import com.fdbozzo.pricing.domain.model.Price;
-import com.fdbozzo.pricing.domain.ports.in.GetPriceUseCase;
+import com.fdbozzo.pricing.application.ports.in.GetPriceUseCase;
 import com.fdbozzo.pricing.infrastructure.rest.PricesApiController;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
